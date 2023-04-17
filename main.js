@@ -1,5 +1,3 @@
-// 버전3 : 3개 이상의 숫자로 사칙연산할 수 있다.
-// 추가 기능 : 숫자를 누를 때, 해당 숫자가 출력된다.
 const div = document.querySelector('div')
 const cal = document.querySelector('#cal')
 const ac = document.querySelector('#ac')
@@ -8,45 +6,64 @@ const signBtnList = document.querySelectorAll('#sign button:not(#cal)')
 
 let result = 0
 
-// AC 버튼 : 초기화
+// AC 버튼 - 초기화
 ac.addEventListener('click', () => {
-  result = 0
-  div.textContent = result
+  div.textContent = '0'
   text = ''
+  inp.splice(0)
 })
 
-let inp = ''
+const inp = []
 let text = ''
 
 numBtnList.forEach(v => v.addEventListener('click', () => {
-  inp += v.textContent
-  text += v.textContent
-  div.textContent = text
+  if (text === '0' && v.textContent === '0') {
+
+  } else {
+    text += v.textContent
+    div.textContent = text
+  }
 }))
 signBtnList.forEach(v => v.addEventListener('click', () => {
-  inp += v.textContent
-  text = ''
+  if (text) {
+    if (inp.length === 1 && /\d/.test(inp[0])) {
+      inp.shift()
+    }
+    inp.push(parseInt(text))
+    text += v.textContent
+    div.textContent = text
+  }
+  if (/[^\d]/.test(inp[inp.length-1])) {
+    inp.pop()
+  }
+  inp.push(v.textContent)
 }))
 
 cal.addEventListener('click', calHandle)
 
 function calHandle() {
-  const numArr = inp.match(/\d+/g).map(v => parseInt(v))
-  const signArr = inp.match(/[^\d]/g)
+  inp.push(parseInt(text))
+  console.log(inp)
+
+  const signArr = inp.filter(v => /[^\d]/.test(v))
   signArr.forEach((v, i) => {
-    if (i === 0 && /^\d/.test(inp)) {
-      calculator(numArr.shift(), numArr.shift(), v)
-    } else {
-      calculator(result, numArr.shift(), v)
+    if (v === '/' || v === '×') {
+      const index = inp.indexOf(v)
+      calculator(inp[index-1], inp[index+1], v)
+      inp.splice(index-1, 3, result)
+      signArr.splice(i, 1)
     }
   })
+  signArr.forEach(v => {
+    const index = inp.indexOf(v)
+    calculator(inp[index-1], inp[index+1], v)
+    inp.splice(index-1, 3, result)
+  })
   div.textContent = result
-  inp = ''
   text = ''
 }
 
 function calculator(num1, num2, sign) {
-  console.log(num1, num2, sign)
   switch (sign) {
     case '+':
       result = num1 + num2
