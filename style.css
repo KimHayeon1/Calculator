@@ -6,8 +6,20 @@ ol {
 li {
   list-style: none;
 }
+body {
+  margin: 0;
+}
 
 /* common */
+:root {
+  font-family: 'Noto Sans KR', sans-serif;
+}
+button {
+  font-family: inherit;
+}
+input {
+  font-family: inherit;
+}
 .a11y-hidden {
   clip: rect(1px, 1px, 1px, 1px);
   clip-path: inset(50%);
@@ -20,12 +32,65 @@ li {
 }
 
 /* layout */
-#number {
-  max-width: 100px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+main {
+  display: flex;
+  min-height: 100vh;
+}
+article {
+  margin: auto;
+  width: 100%;
+  max-width: 300px;
+  font-size: 16px;
+}
+h1 {
+  text-align: center;
+  font-weight: 500;
+  color: #e6657a;
+  margin: 0 0 26px;
+}
+#calc_result {
+  font-size: 20px;
+  padding: 10px;
+  color: #e6657a;
+  box-shadow: inset 0px 0px 2px 2px pink;
+  margin-bottom: 10px;
+  border-radius: 4px;
 }
 .left{
+  width: 75%;
   float: left;
 }
 /* clear: left; */
+#number {
+  margin-top: 10px;
+  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+/* .left에만 float: left를 주면 #sign이 왼쪽에 오지 않는다. 이유가 뭐지? */
+#number li:last-child {
+  grid-column: 1 / 4;
+}
+#sign {
+  float: left;
+  margin-left: 10px;
+  width: calc(25% - 10px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+button {
+  /* inline-block이어서 요소 간 간격이 생겼었다. */
+  /* 부모요소에 font-size: 0; 혹은 line-height: 0;을 줘도 똑같이 동작한다. */
+  display: block;
+  font-size: 20px;
+  width: 100%;
+  padding: 10px;
+  color: rgb(230, 101, 122);
+  background: rgb(255, 214, 227);
+  border: 1px solid #fff;
+  box-shadow: inset -2px -2px 2px pink;
+  border-radius: 4px;
+  border: none;
+  /* box-sizing: border-box; */
+}

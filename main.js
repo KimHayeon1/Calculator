@@ -5,24 +5,22 @@ const numBtnList = document.querySelectorAll('#number button')
 const signBtnList = document.querySelectorAll('#sign button:not(#cal)')
 
 let result = 0
+const inp = [0]
+let text = ''
+
+cal.addEventListener('click', calHandle)
 
 // AC 버튼 - 초기화
 ac.addEventListener('click', () => {
   div.textContent = '0'
   text = ''
-  inp.splice(0)
+  inp.splice(0, inp.length, 0)
 })
 
-const inp = []
-let text = ''
 
 numBtnList.forEach(v => v.addEventListener('click', () => {
-  if (text === '0' && v.textContent === '0') {
-
-  } else {
-    text += v.textContent
-    div.textContent = text
-  }
+  text = parseInt(text+v.textContent)
+  div.textContent = text
 }))
 signBtnList.forEach(v => v.addEventListener('click', () => {
   if (text) {
@@ -30,8 +28,9 @@ signBtnList.forEach(v => v.addEventListener('click', () => {
       inp.shift()
     }
     inp.push(parseInt(text))
-    text += v.textContent
-    div.textContent = text
+    // text += v.textContent
+    // div.textContent = text
+    text = ''
   }
   if (/[^\d]/.test(inp[inp.length-1])) {
     inp.pop()
@@ -39,26 +38,21 @@ signBtnList.forEach(v => v.addEventListener('click', () => {
   inp.push(v.textContent)
 }))
 
-cal.addEventListener('click', calHandle)
-
 function calHandle() {
-  inp.push(parseInt(text))
+  // 예외
+  if(text === '') {
+    return alert('계산할 숫자를 입력해주세요')
+  }
   console.log(inp)
 
+  inp.push(parseInt(text))
   const signArr = inp.filter(v => /[^\d]/.test(v))
-  signArr.forEach((v, i) => {
-    if (v === '/' || v === '×') {
-      const index = inp.indexOf(v)
-      calculator(inp[index-1], inp[index+1], v)
-      inp.splice(index-1, 3, result)
-      signArr.splice(i, 1)
-    }
-  })
   signArr.forEach(v => {
     const index = inp.indexOf(v)
     calculator(inp[index-1], inp[index+1], v)
     inp.splice(index-1, 3, result)
   })
+  
   div.textContent = result
   text = ''
 }

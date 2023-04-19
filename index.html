@@ -5,66 +5,73 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&display=swap" rel="stylesheet">
   <title>계산기</title>
 </head>
 <body>
   <!-- 2개의 숫자를 다루는 계산기 -->
-  <h1>계산기</h1>
-  <div>0</div>
-  <div class="left">
-    <button type="button" id="ac">AC</button>
-    <ol id="number">
-      <h2 class="a11y-hidden">9에서 0까지 숫자</h2>
+  <main>
+    <article>
+    <h1>계산기</h1>
+    <div id="calc_result">0</div>
+    <!-- <input value="0"> -->
+    <div class="left">
+      <button type="button" id="ac">AC</button>
+      <ol id="number">
+        <h2 class="a11y-hidden">9에서 0까지 숫자</h2>
+        <li>
+          <button type="button">9</button>
+        </li>
+        <li>
+          <button type="button">8</button>
+        </li>
+        <li>
+          <button type="button">7</button>
+        </li>
+        <li>
+          <button type="button">6</button>
+        </li>
+        <li>
+          <button type="button">5</button>
+        </li>
+        <li>
+          <button type="button">4</button>
+        </li>
+        <li>
+          <button type="button">3</button>
+        </li>
+        <li>
+          <button type="button">2</button>
+        </li>
+        <li>
+          <button type="button">1</button>
+        </li>
+        <li>
+          <button type="button">0</button>
+        </li>
+      </ol>
+    </div>
+    <ol id="sign">
+      <h2 class="a11y-hidden">계산기호</h2>
       <li>
-        <button type="button">9</button>
+        <button type="button">/</button>
       </li>
       <li>
-        <button type="button">8</button>
+        <button type="button">&times</button>
       </li>
       <li>
-        <button type="button">7</button>
+        <button type="button">-</button>
       </li>
       <li>
-        <button type="button">6</button>
+        <button type="button">+</button>
       </li>
       <li>
-        <button type="button">5</button>
+        <button type="button" id="cal">=</button>
       </li>
-      <li>
-        <button type="button">4</button>
-      </li>
-      <li>
-        <button type="button">3</button>
-      </li>
-      <li>
-        <button type="button">2</button>
-      </li>
-      <li>
-        <button type="button">1</button>
-      </li>
-      <li>
-        <button type="button">0</button>
-      </li>
-    </ol>
-  </div>
-  <ol id="sign">
-    <h2 class="a11y-hidden">계산기호</h2>
-    <li>
-      <button type="button">/</button>
-    </li>
-    <li>
-      <button type="button">&times</button>
-    </li>
-    <li>
-      <button type="button">-</button>
-    </li>
-    <li>
-      <button type="button">+</button>
-    </li>
-    <li>
-      <button type="button" id="cal">=</button>
-    </li>
-  </ol>
+    </ol></article>
+  </main>
   <script src="main.js"></script>
 </body>
 </html>
