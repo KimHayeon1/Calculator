@@ -43,14 +43,23 @@ function calHandle() {
   if(text === '') {
     return alert('계산할 숫자를 입력해주세요')
   }
-  console.log(inp)
-
+  
   inp.push(parseInt(text))
+  console.log(inp)
   const signArr = inp.filter(v => /[^\d]/.test(v))
   signArr.forEach(v => {
+    if (v === '/' || v === '×') {
+      const index = inp.indexOf(v)
+      calculator(inp[index-1], inp[index+1], v)
+      inp.splice(index-1, 3, result)
+    }
+  })
+  signArr.forEach(v => {
+    if (v === '+' || v === '-') {
     const index = inp.indexOf(v)
     calculator(inp[index-1], inp[index+1], v)
     inp.splice(index-1, 3, result)
+    }
   })
   
   div.textContent = result
